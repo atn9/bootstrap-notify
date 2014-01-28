@@ -34,6 +34,8 @@
       this.$note.addClass('alert-' + this.options.type);
     else this.$note.addClass('alert-success');
 
+    this.$note.addClass('alert-dismissable');
+
     if(!this.options.message && this.$element.data("message") !== '') // dom text
       this.$note.html(this.$element.data("message"));
     else
@@ -46,7 +48,7 @@
         this.$note.html(this.options.message);
 
     if(this.options.closable)
-      var link = $('<a class="close pull-right" href="#">&times;</a>');
+      var link = $('<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>');
       $(link).on('click', $.proxy(onClose, this));
       this.$note.prepend(link);
 
@@ -65,7 +67,7 @@
       this.$note.delay(this.options.fadeOut.delay || 3000).fadeOut('slow', $.proxy(onClose, this));
 
     this.$element.append(this.$note);
-    this.$note.alert();
+    this.$note.alert('close');
   };
 
   Notification.prototype.hide = function () {
